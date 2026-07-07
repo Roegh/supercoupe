@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Supercoupe 2026 — Jour 2 · Billetterie</title>
+<meta name="description" content="Match des Championnes + Finale de la Supercoupe LNB · Dimanche 20 septembre 2026 · Stade Roland-Garros. 6€ au lieu de 24€." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' font-family='Arial' font-weight='900' text-anchor='middle' fill='%23ffcb05'%3ES%3C/text%3E%3C/svg%3E" />
+<style>
+  /* ============================================================
+     SUPERCOUPE 2026 — Billetterie
+     Design : inspiration Apple (sobre, aéré, typographie forte)
+     Palette : noir d'encre · blanc · or Supercoupe · bleu ciel
+     ============================================================ */
+
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+  :root{
+    --ink:#0a0a0a;
+    --ink-soft:#1c1c1e;
+    --paper:#ffffff;
+    --mist:#f5f5f7;
+    --mist-2:#ebebee;
+    --line:rgba(0,0,0,.10);
+    --muted:#6e6e73;
+    --gold:#ffcb05;
+    --gold-deep:#e0a800;
+    --orange:#f2652a;
+    --orange-deep:#d1481a;
+    --court:#c98a4b;
+    --sky-1:#bcdcfb;
+    --sky-2:#e7f2fd;
+    --sky-3:#f6fbff;
+    --revolut:#1f6feb;
+    --revolut-dark:#0b1220;
+    --ok:#12a150;
+    --radius:22px;
+    --radius-lg:32px;
+    --shadow-sm:0 2px 10px rgba(0,0,0,.06);
+    --shadow:0 20px 50px -20px rgba(0,0,0,.28);
+    --shadow-lg:0 40px 90px -30px rgba(0,0,0,.45);
+    --ease:cubic-bezier(.22,1,.36,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
+    --pad: clamp(20px, 5vw, 40px);
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body{
+    font-family:var(--font);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ::selection{ background:var(--gold); color:#000; }
+
+  .wrap{ width:min(1120px, 100% - (var(--pad) * 2)); margin-inline:auto; }
+
+  /* ---------- Typographie forte ---------- */
+  .kicker{
+    font-size:clamp(.72rem,1.4vw,.82rem); font-weight:700; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--gold-deep);
+  }
+  h1,h2,h3{ letter-spacing:-.02em; line-height:1.02; font-weight:800; }
+  .display{ font-weight:900; letter-spacing:-.035em; line-height:.92; text-transform:uppercase; }
+
+  /* ============================================================ NAV */
+  .nav{
+    position:fixed; inset:0 0 auto 0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px var(--pad);
+    transition:background .5s var(--ease), box-shadow .5s var(--ease), backdrop-filter .5s var(--ease), padding .5s var(--ease);
+  }
+  .nav.scrolled{
+    background:rgba(255,255,255,.72);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    box-shadow:0 1px 0 var(--line);
+    padding:10px var(--pad);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.01em; color:#fff; transition:color .5s var(--ease); }
+  .nav.scrolled .brand{ color:var(--ink); }
+  .brand .mark{
+    width:30px; height:30px; border-radius:9px; background:var(--ink);
+    display:grid; place-items:center; color:var(--gold); font-weight:900; font-size:18px;
+    box-shadow:var(--shadow-sm); flex:none;
+  }
+  .brand small{ font-weight:600; opacity:.7; font-size:.8rem; letter-spacing:0; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.55em;
+    font-weight:600; font-size:.98rem; line-height:1;
+    padding:.85em 1.4em; border-radius:100px;
+    transition:transform .25s var(--spring), background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease), opacity .3s;
+    will-change:transform; white-space:nowrap;
+  }
+  .btn:active{ transform:scale(.955); }
+  .btn-primary{ background:var(--ink); color:#fff; box-shadow:var(--shadow-sm); }
+  .btn-primary:hover{ background:#000; box-shadow:0 10px 24px -8px rgba(0,0,0,.5); transform:translateY(-1px); }
+  .btn-gold{ background:var(--gold); color:#000; box-shadow:0 10px 24px -10px var(--gold-deep); }
+  .btn-gold:hover{ background:#ffd633; transform:translateY(-1px); box-shadow:0 16px 34px -12px var(--gold-deep); }
+  .btn-ghost{ background:rgba(255,255,255,.16); color:#fff; backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.3); }
+  .btn-ghost:hover{ background:rgba(255,255,255,.28); }
+  .nav.scrolled .btn-ghost{ background:var(--ink); color:#fff; border-color:transparent; }
+  .btn-lg{ font-size:1.06rem; padding:1.05em 1.9em; }
+  .btn-block{ width:100%; }
+
+  /* ============================================================ HERO */
+  .hero{
+    position:relative; min-height:100svh; display:flex; align-items:center;
+    padding:120px var(--pad) 60px; overflow:hidden;
+    background:linear-gradient(180deg,var(--sky-1) 0%, var(--sky-2) 46%, var(--sky-3) 78%, #fff 100%);
+  }
+  .hero .orb{ position:absolute; border-radius:50%; filter:blur(30px); opacity:.7; pointer-events:none; animation:drift 18s ease-in-out infinite; }
+  .orb.o1{ width:420px; height:420px; top:-120px; right:-60px; background:radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0)); }
+  .orb.o2{ width:320px; height:320px; top:20%; left:-90px; background:radial-gradient(circle at 40% 40%, #fff, rgba(255,255,255,0)); animation-delay:-6s; }
+  .orb.o3{ width:260px; height:260px; bottom:8%; right:12%; background:radial-gradient(circle at 40% 40%, rgba(255,255,255,.9), rgba(255,255,255,0)); animation-delay:-11s; }
+  @keyframes drift{ 0%,100%{ transform:translate3d(0,0,0) } 50%{ transform:translate3d(0,26px,0) } }
+  .hero-glow{ position:absolute; width:min(70vw,640px); aspect-ratio:1; border-radius:50%; right:-8%; top:2%; background:radial-gradient(circle, rgba(242,101,42,.20), transparent 62%); pointer-events:none; z-index:1; }
+  .hero-ball{ position:absolute; width:min(54vw,640px); height:auto; left:-12%; bottom:-24%; color:#0a3f7a; opacity:.06; z-index:1; pointer-events:none; animation:spin 70s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg) } }
+
+  .hero-grid{ position:relative; z-index:2; display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,56px); align-items:center; width:100%; }
+  .hero-copy .kicker{ color:#0a3f7a; }
+  .hero h1{ margin:.35em 0 .2em; }
+  .hero .l1{ font-size:clamp(2.9rem,8.2vw,6.2rem); }
+  .hero .l2{ font-size:clamp(2.9rem,8.2vw,6.2rem); color:transparent; -webkit-text-stroke:2px var(--ink); }
+  .hero .sub{ font-size:clamp(1.05rem,2.4vw,1.4rem); font-weight:600; color:var(--ink-soft); max-width:34ch; }
+  .hero .meta{ display:flex; flex-wrap:wrap; gap:10px; margin:26px 0 30px; }
+  .chip{
+    display:inline-flex; align-items:center; gap:.5em; font-size:.92rem; font-weight:600;
+    padding:.6em 1em; border-radius:100px; background:rgba(255,255,255,.6);
+    border:1px solid rgba(255,255,255,.9); backdrop-filter:blur(6px); box-shadow:var(--shadow-sm);
+  }
+  .chip svg{ width:16px; height:16px; }
+  .org-badge{ display:flex; width:fit-content; max-width:100%; align-items:center; gap:.6em; font-size:.8rem; font-weight:700; color:#0a3f7a; background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.9); padding:.5em .95em; border-radius:100px; margin-bottom:16px; backdrop-filter:blur(6px); box-shadow:var(--shadow-sm); }
+  .org-badge .org-dot{ width:8px; height:8px; border-radius:50%; background:var(--gold-deep); box-shadow:0 0 0 4px rgba(224,168,0,.22); flex:none; }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .price-flash{ display:flex; align-items:baseline; gap:.5em; margin-left:4px; }
+  .price-flash .now{ font-weight:900; font-size:1.5rem; }
+  .price-flash .was{ color:var(--muted); text-decoration:line-through; font-weight:600; }
+
+  /* Poster card */
+  .poster-card{
+    position:relative; border-radius:var(--radius-lg); overflow:hidden;
+    box-shadow:var(--shadow-lg); background:linear-gradient(160deg,#0a0a0a,#242427);
+    aspect-ratio:1400/1815; transform:rotate(2.2deg);
+    transition:transform .6s var(--ease); will-change:transform;
+  }
+  .poster-card:hover{ transform:rotate(0deg) scale(1.015); }
+  .poster-card img{ width:100%; height:100%; object-fit:cover; }
+  .poster-card .fallback{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:30px; color:#fff; gap:14px;
+    background:linear-gradient(180deg,#0a0a0a,#1a1a1d);
+  }
+  .poster-card .fallback .big{ font-weight:900; letter-spacing:-.03em; font-size:2rem; text-transform:uppercase; line-height:1; }
+  .poster-card .fallback .yl{ color:var(--gold); }
+  .poster-card .fallback .hint{ font-size:.82rem; color:#9a9aa2; max-width:24ch; }
+  .poster-card .badge{
+    position:absolute; top:16px; left:16px; z-index:2; font-size:.72rem; font-weight:800; letter-spacing:.12em;
+    text-transform:uppercase; background:var(--gold); color:#000; padding:.5em .8em; border-radius:100px;
+  }
+
+  .scroll-hint{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:6px; color:#0a3f7a; font-size:.72rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; opacity:.75; }
+  .scroll-hint .mouse{ width:22px; height:34px; border:2px solid currentColor; border-radius:12px; position:relative; }
+  .scroll-hint .mouse::after{ content:""; position:absolute; left:50%; top:6px; width:3px; height:6px; border-radius:3px; background:currentColor; transform:translateX(-50%); animation:wheel 1.6s var(--ease) infinite; }
+  @keyframes wheel{ 0%{ opacity:0; transform:translate(-50%,0) } 30%{ opacity:1 } 100%{ opacity:0; transform:translate(-50%,10px) } }
+
+  /* ============================================================ SECTION base */
+  section.block{ padding:clamp(70px,10vw,130px) 0; }
+  .section-head{ max-width:720px; margin-bottom:clamp(36px,6vw,64px); }
+  .section-head h2{ font-size:clamp(2rem,5.4vw,3.4rem); margin:.3em 0; letter-spacing:-.03em; }
+  .section-head p{ font-size:clamp(1.05rem,2.2vw,1.25rem); color:var(--muted); font-weight:500; }
+
+  /* ---------- Court lines (ambiance terrain) ---------- */
+  .court-lines{ position:absolute; pointer-events:none; z-index:0; }
+
+  /* ---------- Programme (cartes match / scoreboard) ---------- */
+  .programme{ background:var(--mist); position:relative; overflow:hidden; }
+  .programme .court-lines{ color:var(--ink); right:-60px; top:50%; transform:translateY(-50%); width:min(44vw,400px); opacity:.05; }
+  .programme .wrap{ position:relative; z-index:1; }
+  .timeline{ display:grid; gap:20px; }
+  .event-card{
+    position:relative; overflow:hidden;
+    display:grid; grid-template-columns:auto 1fr auto; gap:clamp(16px,3vw,34px); align-items:center;
+    background:var(--paper); border-radius:var(--radius-lg);
+    padding:clamp(22px,3.4vw,40px); padding-left:calc(clamp(22px,3.4vw,40px) + 10px);
+    box-shadow:var(--shadow-sm); border:1px solid var(--line);
+    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .event-card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:8px; background:linear-gradient(180deg,var(--orange),var(--gold)); }
+  .event-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+  .event-time{ font-weight:900; font-size:clamp(1.6rem,4.4vw,2.6rem); letter-spacing:-.03em; color:var(--ink); position:relative; padding-right:clamp(16px,3vw,34px); font-variant-numeric:tabular-nums; }
+  .event-time::after{ content:""; position:absolute; right:0; top:8%; bottom:8%; width:3px; background:linear-gradient(var(--orange),var(--gold)); border-radius:3px; }
+  .event-time .ap{ display:block; font-size:.34em; font-weight:800; color:var(--orange-deep); letter-spacing:.14em; text-transform:uppercase; margin-top:.35em; }
+  .event-body .tag{ font-size:.74rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--orange-deep); }
+  .event-body h3{ font-size:clamp(1.25rem,3vw,1.9rem); margin:.25em 0; line-height:1.15; }
+  .vs-chip{ display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; margin:0 8px; font-size:.66rem; font-weight:900; color:#fff; background:var(--orange); border-radius:50%; box-shadow:0 4px 12px rgba(242,101,42,.4); vertical-align:middle; }
+  .event-body .vs{ color:var(--muted); font-weight:600; font-size:1rem; }
+  .event-body .vs b{ color:var(--ink); }
+  .event-ico{ width:clamp(52px,9vw,74px); height:clamp(52px,9vw,74px); border-radius:20px; background:linear-gradient(160deg,var(--ink),#2b2b30); display:grid; place-items:center; flex:none; box-shadow:var(--shadow-sm); }
+  .event-ico svg{ width:58%; height:58%; }
+
+  /* ---------- Lieu ---------- */
+  .venue-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,48px); align-items:stretch; }
+  .venue-card{
+    border-radius:var(--radius-lg); padding:clamp(28px,4vw,48px); color:#fff; position:relative; overflow:hidden;
+    background:linear-gradient(155deg,#b5471f,#7a2e15); box-shadow:var(--shadow); display:flex; flex-direction:column; justify-content:flex-end; min-height:320px;
+  }
+  .venue-card::before{ content:""; position:absolute; inset:0; background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.05) 0 2px, transparent 2px 26px);
+      opacity:.6; }
+  .venue-card .court{ position:absolute; top:26px; right:26px; font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; background:rgba(0,0,0,.35); padding:.5em .9em; border-radius:100px; }
+  .venue-card h3{ position:relative; font-size:clamp(1.6rem,4vw,2.4rem); }
+  .venue-card address{ position:relative; font-style:normal; opacity:.9; margin-top:.4em; font-weight:500; }
+  .venue-map{ position:relative; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--line); background:var(--mist); min-height:360px; }
+  .venue-map iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+  .venue-map .map-tag{ position:absolute; top:16px; left:16px; z-index:2; display:inline-flex; align-items:center; gap:.5em; background:rgba(10,10,10,.82); color:#fff; font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:.6em .95em; border-radius:100px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); box-shadow:var(--shadow-sm); pointer-events:none; }
+  .venue-map .map-tag svg{ width:14px; height:14px; }
+  .venue-info{ display:flex; flex-direction:column; gap:18px; justify-content:center; }
+  .info-row{ display:flex; gap:14px; align-items:flex-start; }
+  .info-row .ic{ width:42px; height:42px; border-radius:12px; background:var(--mist); display:grid; place-items:center; flex:none; color:var(--ink); }
+  .info-row .ic svg{ width:20px; height:20px; }
+  .info-row b{ display:block; }
+  .info-row span{ color:var(--muted); font-size:.94rem; }
+  .venue-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:6px; }
+  .btn-outline{ border:1.5px solid var(--line); background:var(--paper); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--ink); }
+
+  /* ---------- Poster showcase ---------- */
+  .showcase{ background:var(--mist); text-align:center; }
+  .showcase-frame{ max-width:520px; margin:0 auto; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-lg); background:#0a0a0a; }
+  .showcase-frame img{ width:100%; }
+  .showcase-frame .fallback{ padding:80px 30px; color:#fff; }
+  .showcase-frame .fallback .big{ font-weight:900; font-size:2rem; text-transform:uppercase; }
+
+  /* ============================================================ RESERVATION */
+  .reserve{ background:linear-gradient(180deg,#0a0a0a,#141416); color:#fff; position:relative; overflow:hidden; }
+  .reserve::before{ content:""; position:absolute; width:700px; height:700px; border-radius:50%; top:-260px; left:-160px; background:radial-gradient(circle, rgba(31,111,235,.18), transparent 60%); }
+  .reserve::after{ content:""; position:absolute; width:600px; height:600px; border-radius:50%; bottom:-260px; right:-160px; background:radial-gradient(circle, rgba(255,203,5,.14), transparent 60%); }
+  .reserve .wrap{ position:relative; z-index:1; }
+  .reserve .section-head{ text-align:center; margin-inline:auto; }
+  .reserve .section-head p{ color:#a9a9b0; }
+  .reserve .kicker{ color:var(--gold); }
+  .reserve .court-lines{ color:#fff; left:50%; top:50%; transform:translate(-50%,-50%); width:min(88vw,540px); opacity:.045; }
+
+  .ticket{
+    max-width:560px; margin:0 auto; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+    border-radius:var(--radius-lg); padding:clamp(26px,4vw,40px); backdrop-filter:blur(10px);
+    box-shadow:var(--shadow-lg);
+  }
+  .ticket .t-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; padding-bottom:22px; border-bottom:1px dashed rgba(255,255,255,.18); }
+  .ticket .t-head h3{ font-size:1.15rem; }
+  .ticket .t-head span{ color:#a9a9b0; font-size:.9rem; }
+  .ticket .t-price{ text-align:right; }
+  .ticket .t-price .n{ font-weight:900; font-size:1.9rem; letter-spacing:-.03em; }
+  .ticket .t-price .w{ color:#7d7d85; text-decoration:line-through; font-size:.95rem; font-weight:600; }
+
+  .qty{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:24px 0; }
+  .qty > b{ font-weight:600; }
+  .qty small{ display:block; color:#8a8a90; font-weight:400; font-size:.82rem; }
+  .stepper{ display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:100px; padding:5px; }
+  .stepper button{ width:42px; height:42px; border-radius:50%; color:#fff; font-size:1.5rem; font-weight:500; display:grid; place-items:center; transition:background .2s, transform .2s var(--spring); }
+  .stepper button:hover{ background:rgba(255,255,255,.12); }
+  .stepper button:active{ transform:scale(.88); }
+  .stepper button:disabled{ opacity:.3; cursor:not-allowed; }
+  .stepper .val{ min-width:44px; text-align:center; font-weight:800; font-size:1.4rem; font-variant-numeric:tabular-nums; }
+
+  .total-row{ display:flex; justify-content:space-between; align-items:baseline; padding:22px 0; border-top:1px solid rgba(255,255,255,.12); margin-top:2px; }
+  .total-row .lbl{ color:#a9a9b0; }
+  .total-row .amt{ font-weight:900; font-size:2.4rem; letter-spacing:-.03em; }
+  .total-row .amt .cur{ font-size:.5em; vertical-align:super; margin-left:2px; }
+
+  .pay-btn{
+    position:relative; width:100%; margin-top:8px; padding:1.25em 1.6em; border-radius:18px;
+    background:linear-gradient(180deg,#2b7bff,var(--revolut)); color:#fff; font-weight:700; font-size:1.12rem;
+    display:flex; align-items:center; justify-content:center; gap:.6em; overflow:hidden;
+    box-shadow:0 16px 40px -12px rgba(31,111,235,.7); transition:transform .3s var(--spring), box-shadow .3s var(--ease);
+  }
+  .pay-btn:hover{ transform:translateY(-2px); box-shadow:0 22px 50px -14px rgba(31,111,235,.85); }
+  .pay-btn:active{ transform:translateY(0) scale(.99); }
+  .pay-btn .arrow{ transition:transform .35s var(--spring); }
+  .pay-btn:hover .arrow{ transform:translateX(5px); }
+  .pay-btn::after{ /* shimmer */
+    content:""; position:absolute; top:0; left:-120%; width:60%; height:100%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    transform:skewX(-18deg); animation:shine 3.4s ease-in-out infinite;
+  }
+  @keyframes shine{ 0%,60%{ left:-120% } 85%,100%{ left:130% } }
+  .pay-note{ text-align:center; margin-top:16px; color:#8a8a90; font-size:.82rem; display:flex; align-items:center; justify-content:center; gap:.5em; }
+  .pay-note svg{ width:14px; height:14px; flex:none; }
+
+  /* ============================================================ MODAL */
+  .overlay{
+    position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; justify-content:center;
+    background:rgba(10,10,12,.5); backdrop-filter:blur(6px); opacity:0; visibility:hidden;
+    transition:opacity .4s var(--ease), visibility .4s;
+    padding:0;
+  }
+  .overlay.open{ opacity:1; visibility:visible; }
+  .sheet{
+    width:min(520px,100%); background:var(--paper); color:var(--ink);
+    border-radius:28px 28px 0 0; padding:8px var(--pad) calc(var(--pad) + env(safe-area-inset-bottom));
+    max-height:92svh; overflow-y:auto; transform:translateY(100%);
+    transition:transform .55s var(--spring); box-shadow:var(--shadow-lg);
+  }
+  .overlay.open .sheet{ transform:translateY(0); }
+  @media(min-width:640px){
+    .overlay{ align-items:center; }
+    .sheet{ border-radius:28px; }
+  }
+  .grabber{ width:40px; height:5px; border-radius:5px; background:var(--mist-2); margin:10px auto 6px; }
+  .sheet-head{ display:flex; justify-content:space-between; align-items:center; padding:8px 0 18px; }
+  .sheet-head h3{ font-size:1.3rem; }
+  .close-x{ width:36px; height:36px; border-radius:50%; background:var(--mist); display:grid; place-items:center; color:var(--muted); transition:background .2s, transform .2s; }
+  .close-x:hover{ background:var(--mist-2); transform:rotate(90deg); }
+
+  .recap{ background:var(--mist); border-radius:18px; padding:20px; margin-bottom:20px; }
+  .recap-row{ display:flex; justify-content:space-between; gap:12px; padding:7px 0; font-size:.95rem; }
+  .recap-row.strong{ border-top:1px solid var(--line); margin-top:8px; padding-top:16px; font-size:1.1rem; }
+  .recap-row .k{ color:var(--muted); }
+  .recap-row .v{ font-weight:600; text-align:right; }
+  .recap-row.strong .v{ font-weight:900; font-size:1.4rem; }
+
+  .steps{ display:grid; gap:12px; margin-bottom:22px; }
+  .step{ display:flex; gap:14px; align-items:flex-start; }
+  .step .num{ width:28px; height:28px; border-radius:50%; background:var(--ink); color:#fff; font-weight:800; font-size:.85rem; display:grid; place-items:center; flex:none; }
+  .step .txt b{ display:block; font-size:.98rem; }
+  .step .txt span{ color:var(--muted); font-size:.88rem; }
+  .step .txt .amt-pill{ display:inline-block; background:var(--gold); color:#000; font-weight:800; padding:.05em .5em; border-radius:6px; }
+
+  .modal-pay{
+    width:100%; padding:1.15em; border-radius:16px; background:linear-gradient(180deg,#2b7bff,var(--revolut));
+    color:#fff; font-weight:700; font-size:1.08rem; display:flex; align-items:center; justify-content:center; gap:.5em;
+    box-shadow:0 14px 34px -12px rgba(31,111,235,.7); transition:transform .25s var(--spring);
+    position:relative; overflow:hidden;
+  }
+  .modal-pay:hover{ transform:translateY(-2px); }
+  .modal-pay:active{ transform:scale(.98); }
+  .modal-pay .revo-logo{ width:20px; height:20px; }
+
+  .modal-sub{ text-align:center; margin-top:14px; font-size:.82rem; color:var(--muted); }
+  .modal-sub a{ color:var(--revolut); font-weight:600; }
+
+  /* Vues de la modale (Infos / Paiement / Confirmation) */
+  .mv{ animation:fadeUp .38s var(--ease); }
+  .mv[hidden]{ display:none; }
+  .mv-intro{ color:var(--muted); font-size:.94rem; margin:-4px 0 18px; }
+  .field-row{ display:flex; gap:12px; }
+  .field-row .field{ flex:1; }
+  .field{ text-align:left; margin-bottom:14px; }
+  .field label{ display:block; font-size:.82rem; font-weight:600; color:var(--muted); margin-bottom:6px; }
+  .field input{ width:100%; padding:.9em 1em; border-radius:12px; border:1.5px solid var(--line); font-size:1rem; font-family:inherit; transition:border-color .2s, box-shadow .2s; background:var(--paper); color:var(--ink); }
+  .field input:focus{ outline:none; border-color:var(--revolut); box-shadow:0 0 0 3px rgba(31,111,235,.13); }
+  #form-continue{ margin-top:4px; }
+  #done-view{ text-align:center; padding:8px 0 4px; }
+  .check-anim{ width:76px; height:76px; margin:6px auto 14px; border-radius:50%; background:rgba(18,161,80,.12); display:grid; place-items:center; }
+  .check-anim svg{ width:40px; height:40px; stroke:var(--ok); }
+  .check-anim svg path{ stroke-dasharray:48; stroke-dashoffset:48; animation:draw .6s var(--ease) .1s forwards; }
+  @keyframes draw{ to{ stroke-dashoffset:0 } }
+  #done-view h3{ font-size:1.4rem; margin-bottom:6px; }
+  #done-view p{ color:var(--muted); font-size:.94rem; margin:0 auto 22px; max-width:38ch; }
+
+  /* Toast */
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px); z-index:300;
+    background:var(--ink); color:#fff; padding:.9em 1.3em; border-radius:100px; font-weight:600; font-size:.92rem;
+    box-shadow:var(--shadow-lg); opacity:0; visibility:hidden; transition:opacity .3s, transform .3s var(--spring); display:flex; align-items:center; gap:.5em;
+  }
+  .toast.show{ opacity:1; visibility:visible; transform:translate(-50%,0); }
+  .toast svg{ width:16px; height:16px; }
+
+  /* ============================================================ FOOTER */
+  footer{ background:#050505; color:#8a8a90; padding:60px var(--pad) 40px; text-align:center; }
+  footer .brand{ justify-content:center; margin-bottom:14px; color:#fff; }
+  footer .forg{ font-size:.98rem; color:#d0d0d6; margin-bottom:14px; }
+  footer .forg b{ color:#fff; }
+  footer .fnote{ font-size:.85rem; max-width:52ch; margin:0 auto 10px; line-height:1.7; }
+  footer .fmodif{ font-size:.75rem; color:#5a5a60; margin-top:18px; }
+
+  /* ============================================================ REVEAL */
+  .reveal{ opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in{ opacity:1; transform:none; }
+  .reveal.d1{ transition-delay:.08s } .reveal.d2{ transition-delay:.16s } .reveal.d3{ transition-delay:.24s } .reveal.d4{ transition-delay:.32s }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(16px) } to{ opacity:1; transform:none } }
+
+  /* ============================================================ RESPONSIVE */
+  @media(max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; max-width:300px; }
+    .poster-card{ transform:none; aspect-ratio:auto; }
+    .offer-grid{ grid-template-columns:1fr; }
+    .venue-grid{ grid-template-columns:1fr; }
+    .event-card{ grid-template-columns:auto 1fr; }
+    .event-ico{ display:none; }
+  }
+  @media(max-width:520px){
+    .brand small{ display:none; }
+    .event-card{ grid-template-columns:1fr; gap:14px; }
+    .event-time{ display:flex; align-items:baseline; gap:12px; padding-right:0; }
+    .event-time::after{ display:none; }
+    .event-time .ap{ margin-top:0; }
+    .price-flash{ display:none; }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <nav class="nav" id="nav">
+    <a class="brand" href="#top">
+      <span class="mark">S</span>
+      <span>Supercoupe 2026 <small>· Jour 2</small></span>
+    </a>
+    <button class="btn btn-ghost" data-open>Réserver — 6€</button>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="top">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="hero-glow"></div>
+    <svg class="hero-ball" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="50" cy="50" r="47"/><path d="M50 3v94M3 50h94M17 15c22 20 22 50 0 70M83 15c-22 20-22 50 0 70"/></g></svg>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="org-badge reveal"><span class="org-dot"></span>Organisé par le BDS Polytech Paris-Saclay</div>
+        <span class="kicker reveal">Fulfil Supercoupe · Dimanche 20 septembre 2026</span>
+        <h1>
+          <span class="display l1 reveal d1">Match des</span><br>
+          <span class="display l2 reveal d2">Championnes</span>
+        </h1>
+        <p class="sub reveal d3">Puis la Finale de la Supercoupe LNB. Deux titres, une après-midi, sur le Court Philippe-Chatrier.</p>
+        <div class="meta reveal d3">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg> Dim. 20 sept. · 14h00</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg> Roland-Garros, Paris</span>
+        </div>
+        <div class="hero-cta reveal d4">
+          <button class="btn btn-gold btn-lg" data-open>Réserver ma place</button>
+          <span class="price-flash"><span class="now">6€</span><span class="was">24€</span></span>
+        </div>
+      </div>
+      <div class="hero-visual reveal d2">
+        <div class="poster-card">
+          <span class="badge">Officiel</span>
+          <img src="supercoupe.jpg" alt="Affiche officielle de la Fulfil Supercoupe 2026"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="fallback" style="display:none">
+            <div class="big"><span class="yl">Fulfil</span><br>Supercoupe<br>2026</div>
+            <div class="hint">Placez votre affiche nommée <b style="color:#fff">supercoupe.jpg</b> dans ce dossier pour l'afficher ici.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span class="mouse"></span>Découvrir</div>
+  </header>
+
+  <!-- ================= PROGRAMME ================= -->
+  <section class="block programme" id="programme">
+    <svg class="court-lines" viewBox="0 0 260 300" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><rect x="8" y="8" width="244" height="284" rx="4"/><path d="M100 8 C100 30 160 30 160 8"/><path d="M45 292 L45 232 C60 168 200 168 215 232 L215 292"/><rect x="102" y="182" width="56" height="110"/><circle cx="130" cy="182" r="28"/><line x1="110" y1="276" x2="150" y2="276"/><circle cx="130" cy="266" r="7"/></g></svg>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">Programme du dimanche 20 septembre</span>
+        <h2>Deux finales, une après-midi.</h2>
+        <p>Votre billet donne accès à l'intégralité de la journée.</p>
+      </div>
+      <div class="timeline">
+        <article class="event-card reveal d1">
+          <div class="event-time">14h00 <span class="ap">Coup d'envoi</span></div>
+          <div class="event-body">
+            <span class="tag">Match des Championnes</span>
+            <h3>Basket Landes <span class="vs-chip">VS</span> Tango Bourges</h3>
+            <p class="vs">Le choc au sommet du basket féminin français.</p>
+          </div>
+          <div class="event-ico"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="var(--orange)"/><g fill="none" stroke="#0a0a0a" stroke-width="3.4" stroke-linecap="round"><circle cx="50" cy="50" r="46"/><path d="M50 4v92M4 50h92M18 17c19 17 19 49 0 66M82 17c-19 17-19 49 0 66"/></g></svg></div>
+        </article>
+        <article class="event-card reveal d2">
+          <div class="event-time">17h00 <span class="ap">Grande finale</span></div>
+          <div class="event-body">
+            <span class="tag">Supercoupe LNB · Finale</span>
+            <h3>Vainqueur ½ finale 1 <span class="vs-chip">VS</span> Vainqueur ½ finale 2</h3>
+            <p class="vs">L'aboutissement du week-end : Roanne/Monaco face à Paris/Nanterre.</p>
+          </div>
+          <div class="event-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.7"><path d="M6 9V3h12v6a6 6 0 0 1-12 0Z"/><path d="M6 5H3v1a3 3 0 0 0 3 3M18 5h3v1a3 3 0 0 1-3 3M9 21h6M12 15v6"/></svg></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LIEU ================= -->
+  <section class="block" id="lieu">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">Le lieu</span>
+        <h2>Court Philippe-Chatrier.</h2>
+        <p>Le cœur du Stade Roland-Garros accueille la Supercoupe.</p>
+      </div>
+      <div class="venue-grid">
+        <div class="venue-map reveal d1">
+          <span class="map-tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            Stade Roland-Garros
+          </span>
+          <iframe title="Carte Google du Stade Roland-Garros" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9!2d2.2508!3d48.8467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zRoland-Garros!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr"></iframe>
+        </div>
+        <div class="venue-info">
+          <div class="info-row reveal d1">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>
+            <div><b>Dimanche 20 septembre 2026</b><span>Ouverture des portes en amont · Coup d'envoi 14h00</span></div>
+          </div>
+          <div class="info-row reveal d2">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><b>De 14h00 à ~19h00</b><span>Match des Championnes puis Finale Supercoupe LNB</span></div>
+          </div>
+          <div class="info-row reveal d3">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+            <div><b>75016 Paris</b><span>Métro ligne 9 & 10 · Porte d'Auteuil</span></div>
+          </div>
+          <div class="venue-actions reveal d3">
+            <a class="btn btn-outline" href="https://maps.google.com/?q=Stade+Roland-Garros,+2+Avenue+Gordon+Bennett,+75016+Paris" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              Itinéraire
+            </a>
+            <button class="btn btn-outline" id="ics-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v4M16 2v4M3 10h18M12 14v4M10 16h4"/></svg>
+              Ajouter au calendrier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESERVATION ================= -->
+  <section class="block reserve" id="reservation">
+    <svg class="court-lines" viewBox="0 0 260 300" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5"><rect x="8" y="8" width="244" height="284" rx="4"/><path d="M100 8 C100 30 160 30 160 8"/><path d="M45 292 L45 232 C60 168 200 168 215 232 L215 292"/><rect x="102" y="182" width="56" height="110"/><circle cx="130" cy="182" r="28"/><line x1="110" y1="276" x2="150" y2="276"/><circle cx="130" cy="266" r="7"/></g></svg>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">Billetterie</span>
+        <h2>Réservez votre place.</h2>
+        <p>Renseignez vos informations, réglez en quelques secondes, recevez vos billets par e-mail.</p>
+      </div>
+
+      <div class="ticket reveal d1">
+        <div class="t-head">
+          <div>
+            <h3>Pass Journée · Jour 2</h3>
+            <span>Match des Championnes + Finale Supercoupe LNB</span>
+          </div>
+          <div class="t-price">
+            <div class="n">6€</div>
+            <div class="w">24€</div>
+          </div>
+        </div>
+
+        <div class="qty">
+          <b>Billets<small>Placement libre selon disponibilités</small></b>
+          <div class="stepper">
+            <button id="minus" aria-label="Retirer un billet">−</button>
+            <span class="val" id="qty-val">1</span>
+            <button id="plus" aria-label="Ajouter un billet">+</button>
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span class="lbl">Total à régler</span>
+          <span class="amt"><span id="total-val">6</span><span class="cur">€</span></span>
+        </div>
+
+        <button class="pay-btn" data-open>
+          <svg class="revo-logo" viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 3h9.2c3.9 0 6.9 2.6 6.9 6.4 0 3-1.9 5.3-4.8 6.1L21 21h-5.2l-4.3-5.1H8V21H3V3Zm5 4.2v4.6h3.9c1.7 0 2.8-.9 2.8-2.3 0-1.4-1.1-2.3-2.8-2.3H8Z"/></svg>
+          Payer avec Revolut
+          <span class="arrow">→</span>
+        </button>
+        <div class="pay-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Paiement sécurisé · aucune donnée bancaire enregistrée sur ce site
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="brand"><span class="mark">S</span><span>Fulfil Supercoupe 2026</span></div>
+    <p class="forg">Un événement organisé par le <b>BDS Polytech Paris-Saclay</b></p>
+    <p class="fnote">Match des Championnes (Basket Landes vs Tango Bourges) puis Finale de la Supercoupe LNB, dimanche 20 septembre 2026 dès 14h00, sur le Court Philippe-Chatrier du Stade Roland-Garros.</p>
+    <p class="fnote">Une question ? <a href="mailto:r.tricu6@gmail.com" style="color:var(--gold)">r.tricu6@gmail.com</a></p>
+    <p class="fmodif">Programme et horaires sous réserve de modification.</p>
+  </footer>
+
+  <!-- ================= MODAL DE PAIEMENT ================= -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet" role="document">
+      <div class="grabber"></div>
+
+      <!-- ÉTAPE 1 · INFORMATIONS -->
+      <div class="mv" id="form-view">
+        <div class="sheet-head">
+          <h3 id="sheet-title">Vos informations</h3>
+          <button class="close-x" data-close aria-label="Fermer">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <p class="mv-intro">Vos billets vous seront envoyés par e-mail après validation du paiement. Merci de bien vérifier votre adresse.</p>
+        <form id="buyer-form">
+          <div class="field-row">
+            <div class="field"><label for="f-first">Prénom</label><input id="f-first" type="text" autocomplete="given-name" required></div>
+            <div class="field"><label for="f-last">Nom</label><input id="f-last" type="text" autocomplete="family-name" required></div>
+          </div>
+          <div class="field"><label for="f-promo">Promotion</label><input id="f-promo" type="text" placeholder="ex. PeiP2, Info 4A, Méca 5A…" required></div>
+          <div class="field"><label for="f-email">E-mail personnel</label><input id="f-email" type="email" autocomplete="email" placeholder="vous@exemple.com" required></div>
+          <button type="submit" class="modal-pay" id="form-continue">
+            Continuer vers le paiement <span class="arrow">→</span>
+          </button>
+        </form>
+        <p class="modal-sub">🔒 Vos informations servent uniquement à l'envoi de vos billets par le BDS.</p>
+      </div>
+
+      <!-- ÉTAPE 2 · PAIEMENT -->
+      <div class="mv" id="pay-view" hidden>
+        <div class="sheet-head">
+          <h3>Paiement sécurisé</h3>
+          <button class="close-x" data-close aria-label="Fermer">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="recap">
+          <div class="recap-row"><span class="k">Événement</span><span class="v">Supercoupe · Jour 2</span></div>
+          <div class="recap-row"><span class="k">Date</span><span class="v">Dim. 20 sept. 2026 · 14h00</span></div>
+          <div class="recap-row"><span class="k">Réservation</span><span class="v" id="r-buyer">—</span></div>
+          <div class="recap-row"><span class="k">Billets envoyés à</span><span class="v" id="r-email">—</span></div>
+          <div class="recap-row strong"><span class="k">Total</span><span class="v"><span id="m-total">6</span>€</span></div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <span class="num">1</span>
+            <div class="txt"><b>Ouvrez le paiement Revolut</b><span>Le bouton ci-dessous ouvre la page de paiement sécurisée.</span></div>
+          </div>
+          <div class="step">
+            <span class="num">2</span>
+            <div class="txt"><b>Réglez les <span class="amt-pill"><span id="m-total2">6</span>€</span></b><span>Le montant est déjà indiqué : rien à saisir.</span></div>
+          </div>
+          <div class="step">
+            <span class="num">3</span>
+            <div class="txt"><b>Recevez vos billets</b><span>Le BDS vous les envoie par e-mail après vérification du paiement.</span></div>
+          </div>
+        </div>
+
+        <button class="modal-pay" id="go-revolut">
+          <svg class="revo-logo" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h9.2c3.9 0 6.9 2.6 6.9 6.4 0 3-1.9 5.3-4.8 6.1L21 21h-5.2l-4.3-5.1H8V21H3V3Zm5 4.2v4.6h3.9c1.7 0 2.8-.9 2.8-2.3 0-1.4-1.1-2.3-2.8-2.3H8Z"/></svg>
+          Payer <span id="m-total3">6</span>€ avec Revolut
+        </button>
+        <p class="modal-sub"><a href="#" id="back-to-form">← Modifier mes informations</a></p>
+      </div>
+
+      <!-- ÉTAPE 3 · CONFIRMATION -->
+      <div class="mv" id="done-view" hidden>
+        <div class="check-anim"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>C'est enregistré, merci&nbsp;!</h3>
+        <p>Une fois votre paiement Revolut reçu, le BDS vous enverra vos billets par e-mail. Pensez à vérifier vos spams.</p>
+        <button class="modal-pay" data-close style="background:linear-gradient(180deg,#18b862,#12a150); box-shadow:0 14px 34px -12px rgba(18,161,80,.55)">
+          Terminer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST ================= -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+    <span id="toast-msg">Montant copié</span>
+  </div>
+
+<script>
+/* ============================================================
+   CONFIGURATION — Modifiez uniquement ce bloc
+   ============================================================ */
+const CONFIG = {
+  // ▼▼▼ LIEN DE PAIEMENT REVOLUT (montant déjà fixé à 6€) ▼▼▼
+  revolutLink : "https://checkout.revolut.com/pay/5573e14c-e361-4ddf-bcf3-c75876093a63",
+  fixedAmount : true,         // montant verrouillé par le lien Revolut Checkout
+
+  // ▼▼▼ COLLECTE DES INFOS ACHETEURS — IMPORTANT (voir GUIDE.md §3) ▼▼▼
+  // Clé Web3Forms (gratuite) : chaque réservation vous arrive par e-mail.
+  // Sans clé, la page fonctionne mais les infos ne sont PAS collectées automatiquement.
+  formAccessKey : "",         // ex : "a1b2c3d4-5678-...."  ← À REMPLIR
+
+  price         : 6,          // prix par billet (€)
+  originalPrice : 24,         // prix barré (€)
+  maxTickets    : 1,          // 1 billet par transaction (lien Revolut à montant fixe)
+  organizerEmail: "r.tricu6@gmail.com",
+  organizer     : "BDS Polytech Paris-Saclay",
+
+  eventName : "Supercoupe 2026 — Jour 2",
+  eventDate : "Dimanche 20 septembre 2026, 14h00",
+};
+
+/* ============================================================
+   ÉTAT & HELPERS
+   ============================================================ */
+let qty = 1;
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const total = () => qty * CONFIG.price;
+
+function render(){
+  const t = total();
+  $('#qty-val').textContent  = qty;
+  $('#total-val').textContent = t;
+  ['#m-total','#m-total2','#m-total3'].forEach(id => $(id).textContent = t);
+  $('#minus').disabled = qty <= 1;
+  $('#plus').disabled  = qty >= CONFIG.maxTickets;
+}
+
+/* ---- Sélecteur de quantité ---- */
+$('#minus').addEventListener('click', () => { if(qty>1){ qty--; render(); }});
+$('#plus') .addEventListener('click', () => { if(qty<CONFIG.maxTickets){ qty++; render(); }});
+
+/* Lien à montant fixe : 1 billet par transaction, on masque le sélecteur */
+if (CONFIG.fixedAmount){
+  document.querySelector('.qty').style.display = 'none';
+}
+
+/* ============================================================
+   MODAL — parcours en 3 étapes : Infos → Paiement → Confirmation
+   ============================================================ */
+const overlay = $('#overlay');
+let lastFocus = null;
+let buyer = null;
+
+function showView(name){
+  ['form','pay','done'].forEach(v => { $('#'+v+'-view').hidden = (v !== name); });
+  if(name === 'done') playCheck();
+}
+function playCheck(){
+  const p = $('#done-view .check-anim svg path');
+  if(!p) return;
+  p.style.animation = 'none'; void p.offsetWidth; p.style.animation = '';   // rejoue l'animation
+}
+
+function openModal(){
+  render();
+  showView('form');
+  lastFocus = document.activeElement;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => $('#f-first').focus(), 420);
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastFocus) lastFocus.focus();
+}
+$$('[data-open]').forEach(b => b.addEventListener('click', openModal));
+$$('[data-close]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); closeModal(); }));
+overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+/* ---- Toast ---- */
+function toast(msg){
+  $('#toast-msg').textContent = msg;
+  const t = $('#toast');
+  t.classList.add('show');
+  clearTimeout(t._to);
+  t._to = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ============================================================
+   ÉTAPE 1 → 2 : validation des informations acheteur
+   ============================================================ */
+$('#buyer-form').addEventListener('submit', (e) => {
+  e.preventDefault();                                  // les champs "required" gèrent la validation native
+  buyer = {
+    first : $('#f-first').value.trim(),
+    last  : $('#f-last').value.trim(),
+    promo : $('#f-promo').value.trim(),
+    email : $('#f-email').value.trim(),
+  };
+  $('#r-buyer').textContent = `${buyer.first} ${buyer.last} · ${buyer.promo}`;
+  $('#r-email').textContent = buyer.email;
+  showView('pay');
+});
+$('#back-to-form').addEventListener('click', e => { e.preventDefault(); showView('form'); });
+
+/* ============================================================
+   Envoi des informations acheteur au BDS (Web3Forms)
+   ============================================================ */
+async function submitBuyer(d){
+  const payload = {
+    subject   : `🎟️ Réservation Supercoupe Jour 2 — ${d.first} ${d.last}`,
+    from_name : `${d.first} ${d.last}`,
+    Prénom    : d.first,
+    Nom       : d.last,
+    Promotion : d.promo,
+    Email     : d.email,
+    Événement : 'Supercoupe Jour 2 · dim. 20/09/2026 · Roland-Garros',
+    Montant   : CONFIG.price + '€',
+    Paiement  : 'Revolut (à vérifier dans l’app Revolut avant envoi des billets)',
+  };
+  if(CONFIG.formAccessKey){
+    try{
+      await fetch('https://api.web3forms.com/submit', {
+        method  : 'POST',
+        headers : { 'Content-Type':'application/json', 'Accept':'application/json' },
+        body    : JSON.stringify({ access_key: CONFIG.formAccessKey, ...payload })
+      });
+    }catch(_){ /* on ne bloque jamais le paiement si l'envoi échoue */ }
+  }else{
+    console.warn('[Billetterie] ⚠️ Aucune clé Web3Forms (formAccessKey) : les infos acheteurs ne sont PAS collectées. Voir GUIDE.md §3.');
+  }
+}
+
+/* ============================================================
+   ÉTAPE 2 → 3 : paiement Revolut
+   ============================================================ */
+$('#go-revolut').addEventListener('click', () => {
+  if(buyer) submitBuyer(buyer);                          // les infos partent vers le BDS
+  window.open(CONFIG.revolutLink, '_blank', 'noopener'); // ouverture de la page de paiement Revolut
+  setTimeout(() => showView('done'), 600);               // transition fluide vers la confirmation
+});
+
+/* ============================================================
+   AJOUTER AU CALENDRIER (.ics)
+   ============================================================ */
+$('#ics-btn').addEventListener('click', () => {
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Supercoupe//Billetterie//FR','CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    'UID:supercoupe-2026-jour2@rolandgarros',
+    'DTSTAMP:20260707T090000Z',
+    'DTSTART:20260920T120000Z',   // 14h00 Paris (CEST = UTC+2)
+    'DTEND:20260920T170000Z',     // ~19h00 Paris
+    'SUMMARY:Supercoupe 2026 — Match des Championnes + Finale LNB',
+    'LOCATION:Stade Roland-Garros (Court Philippe-Chatrier)\\, 2 Av. Gordon Bennett\\, 75016 Paris',
+    'DESCRIPTION:14h00 Match des Championnes (Basket Landes vs Tango Bourges)\\, puis 17h00 Finale de la Supercoupe LNB.',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'supercoupe-2026-jour2.ics';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  toast('Événement ajouté à votre calendrier');
+});
+
+/* ============================================================
+   NAV : fond au scroll
+   ============================================================ */
+const nav = $('#nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ============================================================
+   REVEAL au scroll (IntersectionObserver)
+   ============================================================ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      en.target.classList.add('in');
+      io.unobserve(en.target);
+    }
+  });
+}, {threshold:0.15, rootMargin:'0px 0px -8% 0px'});
+$$('.reveal').forEach(el => io.observe(el));
+
+/* Init */
+render();
+</script>
+</body>
+</html>
